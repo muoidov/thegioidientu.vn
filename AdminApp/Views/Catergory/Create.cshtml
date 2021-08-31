@@ -1,0 +1,88 @@
+﻿@model SolutionShop.ViewModel.Catalog.Categories.CategoryAllModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{ var selectList = new SelectList(
+                                    new List<SelectListItem>()
+                                    {
+            new SelectListItem {Text = "Tiếng Việt", Value = "vi-VN"},
+            new SelectListItem {Text = "English", Value = "en-US"}
+                                             }
+             ); }
+
+<div class="container-fluid">
+    <h1 class="mt-4">Tạo mới danh mục</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Tạo mới danh mục</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <div><a asp-action="Index" asp-controller="Catergory" class="btn btn-success">Danh mục</a></div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div class="col-md-6">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SortOrder" class="control-label"></label>
+                            <input asp-for="SortOrder" class="form-control" />
+                            <span asp-validation-for="SortOrder" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IsShowHome" class="control-label"></label>
+                            <input asp-for="IsShowHome" type="checkbox" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ParenId" class="control-label"></label>
+
+                            <select class="form-control"
+                                    asp-for="ParenId" asp-items="@ViewBag.phanloai">
+                                <option>----Chọn-----</option>
+                            </select>                            <span asp-validation-for="ParenId" class="text-danger"></span>
+
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Status" class="control-label"></label>
+                            <input asp-for="Status" class="form-control" />
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="SeoDescription" class="control-label"></label>
+                            <input asp-for="SeoDescription" class="form-control" />
+                            <span asp-validation-for="SeoDescription" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SeoTitle" class="control-label"></label>
+                            <input asp-for="SeoTitle" class="form-control" />
+                            <span asp-validation-for="SeoTitle" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LanguageId" class="control-label"></label>
+                            <select class="form-control" asp-for="LanguageId"
+                                    asp-items="@(new SelectList(selectList.Items,"Value","Text","vi-VN"))"></select>
+                            <span asp-validation-for="LanguageId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SeoAlias" class="control-label"></label>
+                            <input asp-for="SeoAlias" class="form-control" />
+                            <span asp-validation-for="SeoAlias" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Lưu" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

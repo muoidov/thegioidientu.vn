@@ -1,0 +1,64 @@
+﻿@model SolutionShop.ViewModel.System.Users.LoginRequest
+@{ ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var culture = CultureInfo.CurrentCulture.Name; }
+
+<div class="span9">
+    <ul class="breadcrumb">
+        <li><a href="/" localize-content>Home</a> <span class="divider">/</span></li>
+        <li class="active" localize-content>Login</li>
+    </ul>
+    <h3 localize-content>Login</h3>
+    <hr class="soft" />
+
+    <div class="row">
+        <div class="span4">
+            <div class="well">
+                <h5 localize-content>CREATE YOUR ACCOUNT</h5><br />
+
+                <form action="register.html">
+
+                    <div class="controls">
+                        <a href="/@culture/Account/Register" type="submit" class="btn block" localize-content>Create Your Accounts</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="span1"> &nbsp;</div>
+        @if (User.Identity.IsAuthenticated)
+        {
+<div class="span4">
+    <p>@User.Identity.Name</p>
+</div> }
+            else
+            {
+<div class="span4">
+    <div class="well">
+        <h5 localize-content>ALREADY REGISTERED ?</h5>
+        <form action="/@culture/Account/Login" method="post">
+            <div class="control-group">
+                <label class="control-label" for="inputEmail1">Email</label>
+                <div class="controls">
+                    <input class="span3" type="text" asp-for="UserName" placeholder="Tên đăng nhập">
+                    <span asp-validation-for="UserName" class="text-error"></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputPassword1" localize-content>Password</label>
+                <div class="controls">
+                    <input type="password" class="span3" id="inputPassword1" asp-for="PassWord" placeholder="Mật khẩu">
+                    <span asp-validation-for="PassWord" class="text-error"></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn" localize-content>Sign in</button> <a href="https://localhost:5002/Login/ForgotPassword" localize-content>
+                        Forget password?
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>}
+    </div>
+</div>

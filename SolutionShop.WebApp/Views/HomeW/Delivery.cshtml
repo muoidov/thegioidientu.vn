@@ -1,0 +1,90 @@
+﻿@{
+    ViewData["Title"] = "Vận chuyển";
+    var culture = CultureInfo.CurrentCulture;
+}
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+<h1 localize-content>Delivery</h1>
+<div class="span9" id="mainCol">
+    <ul class="breadcrumb">
+        <li><a href="/" localize-content>Home</a> <span class="divider">/</span></li>
+        <li class="active" localize-content>Delivery</li>
+    </ul>
+    <h3>Các đơn vị đối tác vận chuyển</h3>
+    <div>
+        <h2>1. Viettel Post:</h2>
+
+        <p>
+            Đây là đơn vị vận chuyển hàng hóa của Tập đoàn Viễn thông Quân đội (Viettel) được thành lập năm 1997 với mạng lưới rộng khắp trên cả nước. Viettel hiện nay còn có một công ty thành viên tại Campuchia, trở thành doanh nghiệp bưu chính Việt Nam đầu tiên mạnh dạn đầu tư kinh doanh ra thị trường nước ngoài.
+
+            Bảng cước phí của Viettel Post đối với điểm đến là huyện xã, cước COD Viettel là 1.3% tiền thu hộ, tối thiểu 20.000VND/1 bưu gửi. Đối với điểm đến là trung tâm tỉnh, thành phố, cước COD là 0.8% tiền thu hộ, tối thiểu 15.000VND/1 bưu gửi.
+
+            Website: https://www.viettelpost.com.vn/
+        </p>
+
+        <h3>Ưu điểm:</h3>
+        <p>
+            Bảo quản hàng hóa tốt, nhân viên chuyển hàng có trách nhiệm cao.
+            Mạng lưới giao hàng rộng khắp cả nước.
+            Có dịch vụ đến lấy hàng tận nơi, không cần phải mang hàng ra bưu cục Viettel post.
+            Miễn phí chuyển hoàn về đối với đơn hàng nội thành, miễn phí thu hộ đối với các đơn hàng nội tỉnh.
+        </p>
+
+        <h3>Nhược điểm:</h3>
+        <p>
+            Giá vận chuyển cao hơn so với các đơn vị vận chuyển hàng hóa khác.
+            Thời gian giao hàng khá chậm.
+            Chỉ tiêu thu gom và giao hàng chỉ đạt 80% so với cam kết.
+            Không hỗ trợ thay đổi COD đối với đơn hàng đang được vận chuyển.
+        </p>
+
+        <h2>2. Việt Nam Spot (VNpost / EMS):</h2>
+
+        <p>
+            VNpost là tổng của EMS nên gọi 2 cái này chung là 1 cũng được. Đây là mạng lưới vận chuyển lớn nhất Việt Nam được thành lập từ 2005 tới nay. EMS là dịch vụ chuyển phát nhanh thư từ, tài liệu, hàng hóa, vật phẩm cho mọi người ở cả trong và ngoài nước trong khuôn khổ Liên Minh Bưu chính Thế giới (UPU) và Hiệp hội EMS.
+
+            EMS hiện có chi nhánh rộng khắp cả nước và hỗ trợ vận chuyển hàng hóa ở 63 tỉnh thành. Với lực lượng nhân viên đông đảo và rất nhiều loại hình dịch vụ cho khách hàng lựa chọn. Khá thích hợp với ai cần gửi món đồ hàng nặng vì chi phí rẻ. Hỗ trợ COD với mức phí 1% tối thiểu là 15.000đ.
+
+            Website: https://www.ems.com.vn
+        </p>
+        <h3>Ưu điểm:</h3>
+
+        <p>
+            Bảo quản hàng hóa tốt, nhân viên chuyên nghiệp, phục vụ tốt.
+            Giá rẻ hơn so với các đơn vị vận chuyển hàng hóa khác (đặc biệt càng nặng thì càng rẻ hơn).
+            Làm việc có trách nhiệm, độ uy tín cao, ít xảy ra tình trạng mất hàng.
+            Đại lý rộng khắp cả nước, dễ dàng đặt dịch vụ vận chuyển (thường bưu điện huyện nào cũng có).
+        </p>
+        <h3>Nhược điểm:</h3>
+        <p>
+            Giao hàng chậm hơn so với các đơn vị vận chuyển hàng hóa khác.
+            Người gửi hàng phải mang hàng đến bưu điện đóng gói chứ không có dịch vụ đến tận nơi lấy hàng đi.
+            Sau khi phát hàng 2 lần, nếu trục trặc không giao được, người nhận phải tự đến lấy hàng về.
+        </p>
+        <h2>3. Giao Hàng Nhanh (GHN):</h2>
+        <p>
+            Được thành lập năm 2012, là đơn vị vận chuyển hàng hóa chuyên về dịch vụ giao hàng thu tiền hộ với đội ngũ nhân viên đông đảo.
+
+            Giao hàng nhanh có dịch vụ nổi bật là giao hàng 60 phút: khách hàng sẽ nhận được hàng trong vòng 60 phút kể từ khi nhận được yêu cầu gửi hàng. Tuỳ theo từng loại gói dịch vụ giá vận chuyển hàng dao động từ 20.000VND – 85.000VND .
+
+            Website: https://giaohangnhanh.vn/
+        </p>
+        <h3>Ưu điểm:</h3>
+        <p>
+            Thời gian vận chuyển hàng hóa nhanh.
+            Hệ thống website ổn định, dịch vụ chăm sóc khách hàng tốt.
+            Có chế độ bồi thường trong trường hợp hàng hoá hư hỏng, chuyển hoàn tốt.
+        </p>
+        <h3>Nhược điểm:</h3>
+        <p>
+            Phí COD cao, so với các đơn vị khác thì đây là một trong những nơi tính phí COD cao nhất.
+            Quá trình lưu kho và bảo quản hàng hóa trong khi vận chuyển chưa tốt.
+            Thời gian chuyển trả tiền COD cho chủ shop lâu hơn so với các đơn vị khác.
+        </p>
+        <h2>4. Giao Hàng Tiết Kiệm (GHTK):</h2>
+        <p>
+            Giaohangtietkiem.vn được thành lập năm 2013, là đơn vị chuyển phát với mục tiêu hỗ trợ cho các doanh nghiệp kinh doanh trực tuyến vừa và nhỏ. Giao hàng tiết kiệm luôn hướng đến tính chuyên nghiệp trong từng nghiệp vụ, đẩy mạnh tốc độ giao hàng.
+
+            Đối với dịch vụ giao hàng nội thành và ngoại thành Hà Nội và Hồ Chí Minh, giá dịch vụ sẽ dao động từ 10.000VND – 40.000VND tuỳ theo trọng lượng hàng.
+        </p>
+    </div>
+</div>

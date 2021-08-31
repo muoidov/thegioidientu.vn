@@ -1,0 +1,81 @@
+﻿@model SolutionShop.ViewModel.System.Users.RegisterRequest
+
+@{ ViewData["Title"] = "Đăng ký";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<ul class="breadcrumb">
+    <li><a href="index.html" localize-content>Home</a> <span class="divider">/</span></li>
+    <li class="active" localize-content>Registrations</li>
+</ul>
+<h3 localize-content> Registrations</h3>
+<div class="well">
+    <form asp-action="Register" asp-controller="Account" method="post" class="form-horizontal">
+        <h4 localize-content>Your personal information</h4>
+        <div asp-validation-summary="ModelOnly" class="text-error">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputFname1" localize-content>First name</label>
+            <div class="controls">
+                <input type="text" asp-for="FirstName" placeholder="Tên" />
+                <span asp-validation-for="FirstName" class="text-error"></span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputLnam" localize-content>Last name<sup>*</sup></label>
+            <div class="controls">
+                <input type="text" asp-for="LastName" placeholder="Họ" />
+                <span asp-validation-for="LastName" class="text-error"></span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="input_email" localize-content>Date <sup>*</sup></label>
+            <div class="controls">
+                <input type="date" asp-for="Dob" placeholder="dob" />
+                <span asp-validation-for="Dob" class="text-error"></span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="input_email" localize-content>Email </label>
+            <div class="controls">
+                <input type="email" asp-for="Email" placeholder="Email" />
+                <span asp-validation-for="Email" class="text-error"></span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputPassword1" localize-content>User Name</label>
+            <div class="controls">
+                <input type="text" asp-for="UserName" placeholder="Tên đăng nhập">
+                <span asp-validation-for="UserName" class="text-error"></span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputPassword" localize-content>Password</label>
+            <div class="controls">
+                <input type="password" asp-for="PassWord" placeholder="Mật khẩu" />
+                <span asp-validation-for="PassWord" class="text-error"></span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputPassword1" localize-content>Confirm Password</label>
+            <div class="controls">
+                <input type="password" asp-for="ConfirmPassword" placeholder="Xác nhận mật khẩu" />
+                <span asp-validation-for="ConfirmPassword" class="text-error"></span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="mobile" localize-content>Mobile Phone</label>
+            <div class="controls">
+                <input type="text" asp-for="PhoneNumber" placeholder="Số điện thoại" />
+                <span asp-validation-for="PhoneNumber" class="text-error"></span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <input class="btn btn-large btn-success" type="submit" value="Đăng ký" />
+            </div>
+        </div>
+    </form>
+</div>

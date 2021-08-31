@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SolutionShop.ViewModel.System.Contact.ContactViewModel>
+
+@{
+    ViewData["Title"] = "Phản hồi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Phản hồi của khách hàng</h2>
+<hr />
+<table>
+    <div class="container-fluid">
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Phản hồi</li>
+        </ol>
+        <hr />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div>
+                @foreach (var item in Model)
+                {
+                    <div class="card">
+                        <div class="card-header">
+                            Feedback
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Tên <b>@item.Name</b></h5>
+                            <p class="alert alert-danger">Hòm thư <b>@item.Email </b>gửi phản hồi <u>@item.Message</u></p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</table>

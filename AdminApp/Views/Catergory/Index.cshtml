@@ -1,0 +1,113 @@
+﻿@using SolutionShop.ViewModel.Common
+@model PagedResult<SolutionShop.ViewModel.Catalog.Categories.CategoryAllModel>
+@{
+    ViewData["Title"] = "Danh mục";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script>
+        setTimeout(function () {
+            $('#msgAlert').fadeOut('slow');
+        }, 2000);</script>
+}
+<div class="container-fluid">
+    <h1 class="mt-4">Danh mục</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Danh mục sản phẩm</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Index" method="get">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="text" style="height:40px" value="@ViewBag.Keyword" name="keyword" class="form-control" placeholder="Nhập từ khóa" />
+                        </div>
+
+                        <div class="col-md-3">
+                            <button type="submit" style="height:40px" class="btn btn-primary">Tìm</button>
+                            <button type="button" style="height:40px" onclick="window.location.href='/Catergory/Index'" class="btn btn-info">Tải lại</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    @if (ViewBag.SuccessMsg != null)
+                    {
+                        <div id="msgAlert" class="alert alert-success" role="alert">
+                            @ViewBag.SuccessMsg
+                        </div>}
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Mã danh mục
+                                </th>
+                                <th>
+                                    Tên
+                                </th>
+                                <th>
+                                    Số thứ tự
+                                </th>
+                                <th>
+                                    Hiển thị
+                                </th>
+                                <th>
+                                    Danh mục cha
+                                </th>
+                                <th>
+                                    Trạng thái
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SortOrder)
+                                    
+                                    <td>
+                                        @if (item.IsShowHome)
+                                        {
+                                            <p>Có</p>
+                                        }
+                                        else
+                                        {
+                                            <p>Không</p>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ParenId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+
+                                    <td>
+
+                                        @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                @await Component.InvokeAsync("Pager", Model)
+            </div>
+        </div>
+    </div>
+</div>

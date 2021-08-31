@@ -1,0 +1,119 @@
+﻿@using SolutionShop.ViewModel.Common
+@model PagedResult<SolutionShop.ViewModel.Catalog.Products.ProductViewModel>
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+
+@{ ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+@section Scripts{
+    <script>
+        setTimeout(function () {
+            $('#msgAlert').fadeOut('slow');
+        }, 2000);
+    </script>
+}
+<div class="container-fluid">
+    <h1 class="mt-4">Danh sách sản phẩm</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Danh sách sản phẩm</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="row">
+
+            <div class="col-md-11 col-xs-12">
+                <form asp-action="Index" method="get">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="text" style="height:40px" value="@ViewBag.Keyword" name="keyword" class="form-control" placeholder="Nhập từ khóa" />
+                        </div>
+                        <div class="col-md-2">
+                            <select onchange="this.form.submit()" class="form-control"
+                                    name="categoryId" asp-items="@ViewBag.Categories">
+                                <option>----Chọn-----</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" style="height:40px" class="btn btn-primary">Tìm</button>
+                            <button type="button" style="height:40px" onclick="window.location.href='/Product/Index'" class="btn btn-info">Tải lại</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-1 flex-column-reverse"><a asp-action="Create" asp-controller="Product" class="btn btn-success">Tạo mới</a></div>
+        </div>
+        <button type="submit"></button>
+        <div class="card-body">
+
+            <div class="row">
+                @if (ViewBag.SuccessMsg != null)
+                {
+    <div id="msgAlert" class="alert alert-success" role="alert">
+        @ViewBag.SuccessMsg
+    </div>}
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                Ảnh
+                            </th>
+                            <th>
+                                Tên
+                            </th>
+                            <th>
+                                Giá nhập
+                            </th>
+                            <th>
+                                Giá bán
+                            </th>
+                            <th>
+                                Số lượng
+                            </th>
+                            <th>
+                                Mã SP
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+            <tr>
+                <td>
+                    <img style="width:50px;height:50px" src='@Configuration["BaseAddress"]/@item.ThumbnailImage' class="img" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OriginalPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => string.Join(",",item.Categories))
+                    </td>*@
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { /* id=item.PrimaryKey */ id = item.Id }) |
+                    @Html.ActionLink("Chi tiết", "Details", new { /* id=item.PrimaryKey */ id = item.Id }) |
+                    @Html.ActionLink("Xóa", "Delete", new { /* id=item.PrimaryKey */id = item.Id })|
+                    @Html.ActionLink("Gán danh mục", "CategoryAssign", new { /* id=item.PrimaryKey */id = item.Id })
+                </td>
+            </tr>}
+                    </tbody>
+                </table>
+            </div>
+            @await Component.InvokeAsync("Pager", Model)
+        </div>
+    </div>
+</div>

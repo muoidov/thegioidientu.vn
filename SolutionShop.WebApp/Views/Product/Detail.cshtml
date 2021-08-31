@@ -1,0 +1,221 @@
+﻿@model ProductDetailViewModel
+@{ ViewData["Title"] = "Thông tin sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var culture = CultureInfo.CurrentCulture; }
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+@section scripts{
+
+    <script>
+        var siteController = new SiteController();
+        siteController.initialize();
+       
+        var SiteController = function () {
+            this.initialize = function () {
+                regsiterEvents();
+                loadCart();
+            }
+            function loadCart() {
+                const culture = @culture;
+                $.ajax({
+                    type: "GET",
+                    url: "/" + culture + '/Cart/GetListItems',
+                    success: function (res) {
+                        $('#lbl_number_items_header').text(res.length);
+                    }
+                });
+            }
+            function regsiterEvents() {
+                // Write your JavaScript code.
+                $('body').on('click', '.btn-add-cart', function (e) {
+                    e.preventDefault();
+                    const culture = @culture;
+                    const id = $(this).data('id');
+                    const amount = parseInt($('.amount').val());
+
+                    for (let i = 0; i < amount; i++) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/" + culture + '/Cart/AddToCart',
+                            data: {
+                                id: id,
+                                languageId: culture
+                            },
+                            success: function (res) {
+                                $('#lbl_number_items_header').text(res.length);
+                                alert("Thêm vào giỏ hàng thành công");
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                   
+                });
+            }
+
+        }
+    </script>
+}
+<ul class="breadcrumb">
+    <li><a href="/Home/Index"><localize>Home</localize></a> <span class="divider">/</span></li>
+    <li class="active"><localize>@Model.Product.Name</localize></li>
+</ul>
+
+<div class="row">
+    <div id="gallery" class="span3">
+        <a href="@(Configuration["BaseAddress"] + Model.Product.ThumbnailImage)" title="@Model.Product.Name">
+            <img src="@(Configuration["BaseAddress"] + Model.Product.ThumbnailImage)" style="width:100%" alt="@Model.Product.Name" />
+        </a>
+        <div id="differentview" class="moreOptopm carousel slide">
+         
+            
+            <!--
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+            -->
+        </div>
+
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                <span class="btn"><i class="icon-envelope"></i></span>
+                <span class="btn"><i class="icon-print"></i></span>
+                <span class="btn"><i class="icon-zoom-in"></i></span>
+                <span class="btn"><i class="icon-star"></i></span>
+                <span class="btn"><i class=" icon-thumbs-up"></i></span>
+                <span class="btn"><i class="icon-thumbs-down"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <h3>@Model.Product.Name</h3>
+        <small>@Model.Product.Description</small>
+        <hr class="soft" />
+        <form class="form-horizontal qtyFrm">
+            <div class="control-group">
+                <label class="control-label"><localize>Price</localize><span>: @Model.Product.Price đ</span></label>
+                <div class="controls">
+                    <input type="number" class="span1 amount" placeholder="Số lượng" />
+                    <button type="submit" class="btn btn-large btn-primary pull-right btn-add-cart" data-id="@Model.Product.Id"><localize>Add to</localize> <i class="icon-shopping-cart"></i></button>
+                </div>
+            </div>
+        </form>
+
+        <hr class="soft" />
+        
+        <form class="form-horizontal qtyFrm pull-right">
+            <div class="control-group">
+                <label class="control-label"><span localize-content>Color</span></label>
+                <div class="controls">
+                    <select class="span2">
+                        <option localize-content>Black</option>
+                        <option localize-content>Red</option>
+                        <option localize-content>Blue</option>
+                        <option localize-content>Brown</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+        <hr class="soft clr" />
+        <a class="btn btn-small pull-right" href="#detail"><localize>More Details</localize></a>
+        <br class="clr" />
+        <a href="#" name="detail"></a>
+        <hr class="soft" />
+    </div>
+
+    <div class="span9">
+        <ul id="productDetail" class="nav nav-tabs">
+            <li class="active"><a href="#home" data-toggle="tab"><localize>Product Details</localize></a></li>
+            <li><a href="#profile" data-toggle="tab"><localize>Related Products</localize></a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="home">
+                <h4 localize-content>Product Information</h4>
+                @Html.Raw(Model.Product.Details)
+            </div>
+            <div class="tab-pane fade" id="profile">
+                <div id="myTab" class="pull-right">
+                    <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
+                    <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
+                </div>
+                <br class="clr" />
+                <hr class="soft" />
+                <div class="tab-content">
+                    <div class="tab-pane" id="listView">
+                        <div class="row">
+                            <div class="span2">
+                                <img  alt="" />
+                            </div>
+                            <div class="span4">
+                                <h3>New | Available</h3>
+                                <hr class="soft" />
+                                <h5>Product Name </h5>
+                                <p>
+                                    Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies -
+                                    that is why our goods are so popular..
+                                </p>
+                                <a class="btn btn-small pull-right" href="product_details.html">View Details</a>
+                                <br class="clr" />
+                            </div>
+                            <div class="span3 alignR">
+                                <form class="form-horizontal qtyFrm">
+                                    <h3> $222.00</h3>
+                                    <label class="checkbox">
+                                        <input type="checkbox">  Adds product to compair
+                                    </label><br />
+                                    <div class="btn-group">
+                                        <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+                                        <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <hr class="soft" />
+                    </div>
+                    <div class="tab-pane active" id="blockView">
+                        <ul class="thumbnails">
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a href="product_details.html"><img alt="" /></a>
+                                    <div class="caption">
+                                        <h5>Manicure &amp; Pedicure</h5>
+                                        <p>
+                                            Lorem Ipsum is simply dummy text.
+                                        </p>
+                                        <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">&euro;222.00</a></h4>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <hr class="soft" />
+                    </div>
+                </div>
+                <br class="clr">
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="span12">
+        <hr />
+        <form asp-action="CreateComment" asp-controller="Comment" method="post" runat="server">
+            <div>
+                <input type="text" name="ProductId" value="@Model.Product.Id" class="form-control" style="display:none" />
+            </div>
+            <div>
+                <input type="text" name="Name" placeholder="Nhập tên bình luận" />
+            </div>
+            <div>
+                <textarea id="w3review" name="Content" rows="4" cols="100" style="width:850px"></textarea>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-secondary">Bình luận</button>
+            </div>
+        </form>
+    </div>
+    <div class="span10">
+        <b localize-content>Comments customer</b>
+        <br />
+        <hr />
+        @await Component.InvokeAsync("Comment", new { productId = Model.Product.Id });
+    </div>
+</div>

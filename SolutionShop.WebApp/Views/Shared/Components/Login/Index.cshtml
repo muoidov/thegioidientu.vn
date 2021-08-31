@@ -1,0 +1,19 @@
+﻿@{ var culture = CultureInfo.CurrentCulture.Name; }
+@model SolutionShop.ViewModel.System.Users.LoginRequest
+<form class="form-horizontal loginFrm" method="post" asp-action="Login" asp-controller="Account">
+    <div class="control-group">
+        <input id="inputEmail" type="text" asp-for="UserName" placeholder="Tên đăng nhập">
+        <span asp-validation-for="UserName" class="text-error"></span>
+    </div>
+    <div class="control-group">
+        <input type="password" id="inputPassword" asp-for="PassWord" placeholder="Mật khẩu">
+        <span asp-validation-for="PassWord" class="text-error"></span>
+    </div>
+    <div class="control-group">
+        <label class="checkbox" localize-content>
+            <input type="checkbox" asp-for="RememberMe"> Nhớ tài khoản
+        </label>
+        <button type="submit" class="btn btn-success" localize-content>Sign in</button>
+        <a href="/@culture/Account/Register" class="btn btn-info" style="line-height:20px" localize-content>Sign up</a>
+    </div>
+</form>

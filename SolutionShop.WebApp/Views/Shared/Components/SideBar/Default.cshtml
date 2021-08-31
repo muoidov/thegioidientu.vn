@@ -1,0 +1,82 @@
+﻿@model List<SolutionShop.ViewModel.Catalog.Categories.CategoryVm>
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+@{ var culture = CultureInfo.CurrentCulture.Name; }
+@section scripts2{
+    <script>
+        setTimeout(function () {
+            const culture = @culture;
+            $.ajax({
+                type: "GET",
+                url: "/" + culture + '/Cart/GetListItems',
+                success: function (res) {
+                    let itemMounts = res.reduce((a, b) => {
+                        return a += b.quantity;
+                    }, 0);
+                    $('#lbl_number_items_header').text(itemMounts);
+
+                }
+            });
+        }
+            , 0);
+    </script>
+}
+<div id="sidebar" class="span3">
+    <div class="well well-small">
+        <a id="myCart" href="/@culture/cart">
+            <img src="/themes/images/ico-cart.png" alt="cart"><span id="lbl_number_items_header">@ViewBag.CountItem</span> <localize>Items in your cart</localize>
+            <span class="badge badge-warning pull-right"><span id="lbl_price">@ViewBag.Price</span></span>
+        </a>
+    </div>
+    <ul id="sideManu" class="nav nav-tabs nav-stacked">
+        @{ var parents = Model.Where(x => x.ParentId == null); }
+        @for (int index = 0; index < parents.Count(); index++)
+        {
+            var parent = parents.ElementAt(index);
+            var children = Model.Where(x => x.ParentId == parent.Id);
+            if (children.Any())
+            {
+<li class="subMenu open">
+    <a> @parent.Name</a>
+    <ul>
+        @foreach (var item in children)
+        {
+<li><a class="active" href="/@culture/danh-muc/@item.Id"><i class="icon-chevron-right"></i>@item.Name </a></li>}
+    </ul>
+</li> }
+                else
+                {
+<li><a href="/@culture/danh-muc/@parent.Id">@parent.Name</a></li>}
+            
+            
+        }
+    </ul>
+    <br />
+    <div class="thumbnail">
+        <img src="https://localhost:5001/user-content/a99e8209-b13f-4f62-afac-eda49ed1cfc6.jpg" alt="Bootshop panasonoc New camera" />
+        <div class="caption">
+            <h5>AC1500UHP Asus AC1500</h5>
+            <h4 style="text-align:center">
+                <a class="btn" href="/@culture/Sản phẩm/39">
+                    <i class="icon-zoom-in"></i>
+                </a>
+                <p class="btn btn-primary">1.989.000,00 ₫</p>
+            </h4>                
+        </div>
+    </div><br />
+    <div class="thumbnail">
+        <img src="https://localhost:5001/user-content/a9e3610b-05af-4d38-8bfa-5545bf853fa8.jpg" title="Bootshop New Kindel" alt="Bootshop Kindel">
+        <div class="caption">
+            <h5>Loa JBL BAR 2.1</h5>
+            <h4 style="text-align:center">
+                <a class="btn" href="/@culture/Sản phẩm/38"> <i class="icon-zoom-in"></i></a>
+               
+            <p class="btn btn-primary">6.690.000,00 ₫</p></h4>
+        </div>
+    </div><br />
+    <div class="thumbnail">
+        <img src="/themes/images/payment_methods.png" title="Bootshop Payment Methods" alt="Payments Methods">
+        <div class="caption">
+            <h5 localize-content>Payment Methods</h5>
+        </div>
+    </div>
+</div>

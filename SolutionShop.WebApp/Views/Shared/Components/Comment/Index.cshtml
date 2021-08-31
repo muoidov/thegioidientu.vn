@@ -1,0 +1,16 @@
+﻿@model List<SolutionShop.ViewModel.Common.CommentViewModel>
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="be-comment-block">
+            <div class="be-comment-content">
+                <span class="be-comment-name">
+                    <b href="blog-detail-2.html">@item.Name</b>
+                </span><p class="be-comment-text">
+                    @item.Content
+                </p>
+            </div>
+        </div>
+    }
+}
